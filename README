@@ -1,0 +1,57 @@
+1. Introduction
+
+TKount is a utility for counting source and translated files for estimation/quoting and invoicing purposes.
+
+The utility has no user-definable options, but the code can be modified very easily. 
+
+2. License
+
+Copyright (C) 2006, Marc Prior
+
+This program is free software; you may redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 2 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License (GPL) for more details.
+
+A copy of the GNU General Public License should be available from the source from which you obtained this program; if not, write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+
+Marc Prior
+lin4trans@users.sourceforge.net
+www.marcprior.de
+
+TKount and other OmegaTk applications are subject to ABSOLUTELY NO WARRANTY
+This is free software, and you are welcome to redistribute it under certain conditions; please refer to the GPL for details.
+
+3. Requirements
+
+TKount requires tcl/tk, Abiword (including AbiCommand plug-in) and pdftotext. All should be found on most Linux installations and to the best of my knowledge are also available for Windows.
+
+Abiword:	www.abisource.com/download
+pdftotext:	www.foolabs.com/xpdf/about.html
+tcl/tk:		www.tcl.tk/software/tcltk/
+
+4. Principles
+
+TKount provides a selection interface by which the user can select files (including multiple files in the same directory) for counting. Abiword and pdftotext are called to convert these files to plain-text format. The resulting character count is then determined. One count is produced by dividing the character count by a factor according to the preferred unit (e.g. 55 to produce the number of standard German lines). Another count is produced by counting the number of words.
+
+Regular expressions are used to modify the text for counting in order to adjust the count (e.g. for "don't" to be counted as one word, etc.)
+
+The full path of each file and the number of lines and words are output in a text field.
+
+TKount creates three files from the selected file (example: abcde.doc) in the same directory:
+* tkount_chars_abcde.doc (needed for technical reasons, deleted routinely)
+* tkount_chars_abcde.txt (file upon which the character count is based:deleted routinely, but deletion can be suppressed by minor modification to the code)
+* tkount_words_abcde.txt (file containing text upon which the word count is based. Not actually needed for the count, but can be created for documentation purposes if desired. Default is not to create this file
+
+5. Count algorithm
+
+File counts vary according to the algorithm used. There is no such thing as a "correct count", since there is no universally accepted algorithm. TKount can be modified easily to use different algorithms by manipulating the counted text using regular expressions, even without a knowledge of tcl/tk.
+
+6. Modification
+
+TKount is intended to be modified easily. With this in mind, the code in tkount.tcl has been thoroughly commented. 
+
+5. Issues
+
+Functionality is obviously heavily dependent upon conversion by Abiword and pdftotext to plain text. Only the file formats supported by Abiword and pdftotext are supported. At present, these are essentially MS Word, HTML, OpenOffice Writer (.sxw and .odt), pdf and plain text. RTF is theoretically supported, but conversion adds spurious characters which distort the count (this may be resolved in future). An "All files" function is theoretically also possible which would enable files of different formats to be selected more easily at the same time, but would enable files of unsupported formats to be selected and has not therefore been added.
+
+tkount has no proper error handling mechanism as yet, so errors in execution are handled badly. Some files may return an error message even though their format is supported by Abiword.
