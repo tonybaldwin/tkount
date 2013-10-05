@@ -6,8 +6,6 @@
 # If you are using Windows, I can't help you.
 ##########################################################3
 
-name=$(whoami)
-
 if [ != "$HOME/bin/" ]; then
 	mkdir $HOME/bin/
 	$PATH=$PATH:/$HOME/bin/
